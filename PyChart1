@@ -1,0 +1,39 @@
+from pathlib import Path  # Python Standard Library
+import pandas as pd  # pip install pandas openpyxl
+from pyecharts import options as opts  # pip install pyecharts
+from pyecharts.charts import Bar, Calendar, Tab
+
+# Read Excel file (Financial_Data.xlsx) into a pandas DataFrame.
+df = pd.read_excel(
+    io= Path.cwd() / "Financial_Data.xlsx",
+    engine= "openpyxl",
+    sheet_name= "Orders",
+    skiprows= 2,
+    usecols= "B:T",
+    nrows= 3312,
+)
+df.head()
+
+# Get a quick info about our dataframe
+df.info()
+
+# Add month column to our dataframe
+df['Month'] = df['Order Date'].dt.month
+df.head(3)
+
+# group dataframe by months
+grouped_by_months = df.groupby(by=['Month']).sum()[['Sales', 'Profit']]
+grouped_by_months.head(3)
+
+# plot sales & profit by months
+bar_chart_by_month = (
+    Bar()
+    .add_xaxis(grouped_by_months.index.tolist())
+    .add_yaxis('Sales', grouped_by_months['Sales'].round(0).tolist())
+    .add_yaxis('Profit', grouped_by_months['Profit'].round(0).tolist())
+    .set_global_opts(
+        title_opts=opts.TitleOpts(title='Sales & Profit by month', subtitle='in USD')
+    )
+)
+
+bar_chart_by_month.render_notebook()

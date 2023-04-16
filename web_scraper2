@@ -1,0 +1,29 @@
+import pandas as pd
+scraper = pd.read_html()
+scraper = pd.read_html("https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions")
+scraper
+///////////////////////////////////////////////////////////
+import pandas as pd
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+scraper = pd.read_html("https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions")
+
+for idx,table in enumerate(scraper):
+  print("************************************************")
+  print(idx)
+  print(table)
+  
+  scraper[4]
+////////////////////////////////////////////////////////////
+import pandas as pd
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+scraper = pd.read_html("https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions")
+
+for idx,table in enumerate(scraper):
+  print("************************************************")
+  print(idx)
+  print(table)
+scrape(4)

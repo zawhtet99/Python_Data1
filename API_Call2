@@ -1,0 +1,14 @@
+#https://stackoverflow.com/questions/48775755/importing-requests-into-python-using-visual-studio-code
+#python -m pip install requests
+#import requests
+import pip._vendor.requests
+from pip._vendor import requests
+
+baseurl = 'https://rickandmortyapi.com/api/'
+endpoint = 'character'
+r = requests.get(baseurl + endpoint)
+
+print(r.json())
+
+#data = r.json()
+#print(data['info'])
